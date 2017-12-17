@@ -39,11 +39,6 @@ module.exports.removeMessage = () => {
     return msgArr;    
 };
 
-module.exports.clearAllMessages = () => {
-    let clearedArr = messageController.clearAllMessages();
-    return clearedArr;
-};
-
 
 },{"./appData":1}],3:[function(require,module,exports){
 "use strict";
@@ -118,13 +113,15 @@ let input = require("./input");
 let del = require("./delete");
 let output = require("./outputToDom");
 let toggle = require("./disabled");
+let messageController = require("./appData");
 
 json.getjsonData();
 
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved);   
+        output.updateDom(arrayRemoved);
+         
     }
     toggle.toggleDisabled();
 };
@@ -132,9 +129,12 @@ let removeMessage = (event) => {
 document.querySelector("body").addEventListener("click", removeMessage);
 
 let clearAll = () => {
-    let clearedArr = del.clearAllMessages();
-    output.updateDom(clearedArr);
+    let clearedArr = messageController.clearAllMessages();
+    output.updateDom(clearedArr);// get rid of 
     toggle.toggleDisabled();
+    //let output = document.getElementById("output");
+    //output.innerHTML = ""
+    //output.newMessage();
 
 };
 
@@ -187,7 +187,7 @@ drkTheme.addEventListener("click", function(){
 });
 
 
-},{"./delete":2,"./disabled":3,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
+},{"./appData":1,"./delete":2,"./disabled":3,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
 "use strict";
 let outputDiv = document.getElementById("output");
 

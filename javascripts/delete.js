@@ -14,8 +14,3 @@ module.exports.removeMessage = () => {
     return msgArr;    
 };
 
-module.exports.clearAllMessages = () => {
-    let clearedArr = messageController.clearAllMessages();
-    return clearedArr;
-};
-
