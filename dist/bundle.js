@@ -120,7 +120,7 @@ let json = require("./jsonData");
 let input = require("./input");
 let del = require("./delete");
 let output = require("./outputToDom");
-//let toggle = require("./disabled");
+
 let messageController = require("./appData");
 
 json.getjsonData();
