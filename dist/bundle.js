@@ -45,16 +45,26 @@ module.exports.removeMessage = () => {
 "use strict";
 
 let messageController = require("./appData");
+let objArr = require("./outputToDom");
 
-module.exports.toggleDisabled = () => {
-    if (messageController.getMessages().length === 0) {
+// module.exports.toggleDisabled = () => {
+//     if (messageController.getMessages().length === 0) {
+//         document.getElementById("clear").disabled = true;
+//     } else {
+//         document.getElementById("clear").disabled = false;    
+//     }
+// };
+
+module.exports.Disabled = (array) => {
+    if (array.length === 0) {
         document.getElementById("clear").disabled = true;
-    } else {
-        document.getElementById("clear").disabled = false;    
+    // } else {
+    //     document.getElementById("clear").disabled = false;    
     }
 };
 
-},{"./appData":1}],4:[function(require,module,exports){
+    
+},{"./appData":1,"./outputToDom":7}],4:[function(require,module,exports){
 "use strict";
 
 let messageController = require("./appData");
@@ -73,8 +83,9 @@ input.addEventListener("keypress", (e) => {
         let arrayWithInput = messageController.addNewMessage(msgObject);
         output.updateDom(arrayWithInput);
         input.value=""; 
-          
+        return arrayWithInput; //GET NEW ARRAY ADD
     }
+    
 });
 
 
@@ -109,7 +120,7 @@ let json = require("./jsonData");
 let input = require("./input");
 let del = require("./delete");
 let output = require("./outputToDom");
-let toggle = require("./disabled");
+
 let messageController = require("./appData");
 
 json.getjsonData();
@@ -117,11 +128,10 @@ json.getjsonData();
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved); 
-         
-
+        output.updateDom(arrayRemoved);          
+        
     }
-    toggle.toggleDisabled();
+    
 };
 
 document.querySelector("body").addEventListener("click", removeMessage);
@@ -130,11 +140,6 @@ let clearAll = () => {
     let clearedArr = messageController.clearAllMessages();
     output.updateDom(clearedArr);
     
-    toggle.toggleDisabled();
-    //let output = document.getElementById("output");
-    //output.innerHTML = ""
-    //output.newMessage();
-
 };
 
 document.getElementById("clear").addEventListener("click", clearAll);
@@ -186,7 +191,7 @@ drkTheme.addEventListener("click", function(){
 });
 
 
-},{"./appData":1,"./delete":2,"./disabled":3,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
+},{"./appData":1,"./delete":2,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
 "use strict";
 let outputDiv = document.getElementById("output");
 
@@ -195,6 +200,11 @@ module.exports.updateDom = (objectArr) => {
     outputDiv.innerHTML = "";
     for(let i = 0; i < objectArr.length; i++) {
         outputDiv.innerHTML += `<div id = "${i}"class="parent">${objectArr[i].msg} <button class="delete">Delete</button></div>`;
+    }
+    if (objectArr.length === 0){
+        document.getElementById("clear").disabled = true;
+    }else{
+        document.getElementById("clear").disabled = false;
     }
 
     
