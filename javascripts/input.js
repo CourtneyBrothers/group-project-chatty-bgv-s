@@ -2,7 +2,7 @@
 
 let messageController = require("./appData");
 let input = document.getElementById("input");
-let toggle = require("./disabled");
+
 
 
 input.addEventListener("keypress", (e) => {

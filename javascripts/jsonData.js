@@ -16,7 +16,5 @@ const parseMsg = () => {
     for (let i = 0; i < msgData.length; i++) {
         let arrayWithJson = messageController.addNewMessage(msgData[i]); 
         output.updateDom(arrayWithJson);
-    }    
-    
-    
+    }      
 };

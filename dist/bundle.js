@@ -45,31 +45,8 @@ module.exports.removeMessage = () => {
 "use strict";
 
 let messageController = require("./appData");
-let objArr = require("./outputToDom");
-
-// module.exports.toggleDisabled = () => {
-//     if (messageController.getMessages().length === 0) {
-//         document.getElementById("clear").disabled = true;
-//     } else {
-//         document.getElementById("clear").disabled = false;    
-//     }
-// };
-
-module.exports.Disabled = (array) => {
-    if (array.length === 0) {
-        document.getElementById("clear").disabled = true;
-    // } else {
-    //     document.getElementById("clear").disabled = false;    
-    }
-};
-
-    
-},{"./appData":1,"./outputToDom":7}],4:[function(require,module,exports){
-"use strict";
-
-let messageController = require("./appData");
 let input = document.getElementById("input");
-let toggle = require("./disabled");
+
 
 
 input.addEventListener("keypress", (e) => {
@@ -89,7 +66,7 @@ input.addEventListener("keypress", (e) => {
 });
 
 
-},{"./appData":1,"./disabled":3,"./outputToDom":7}],5:[function(require,module,exports){
+},{"./appData":1,"./outputToDom":6}],4:[function(require,module,exports){
 "use strict";
 
 let messageController = require("./appData");
@@ -108,12 +85,10 @@ const parseMsg = () => {
     for (let i = 0; i < msgData.length; i++) {
         let arrayWithJson = messageController.addNewMessage(msgData[i]); 
         output.updateDom(arrayWithJson);
-    }    
-    
-    
+    }      
 };
 
-},{"./appData":1,"./outputToDom":7}],6:[function(require,module,exports){
+},{"./appData":1,"./outputToDom":6}],5:[function(require,module,exports){
 "use strict";
 
 let json = require("./jsonData");
@@ -191,7 +166,7 @@ drkTheme.addEventListener("click", function(){
 });
 
 
-},{"./appData":1,"./delete":2,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
+},{"./appData":1,"./delete":2,"./input":3,"./jsonData":4,"./outputToDom":6}],6:[function(require,module,exports){
 "use strict";
 let outputDiv = document.getElementById("output");
 
@@ -212,4 +187,4 @@ module.exports.updateDom = (objectArr) => {
 
 
 
-},{}]},{},[6]);
+},{}]},{},[5]);
