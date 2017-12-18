@@ -13,11 +13,11 @@ input.addEventListener("keypress", (e) => {
         let message = input.value;
         let msgObject = {};
         msgObject.msg = message;
-        messageController.addNewMessage(msgObject);
-        
-        let index = msgArr.indexOf(msgObject); 
-        output.newOutputToDom(msgObject, index);
-        toggle.toggleDisabled();
+        let arrayWithInput = messageController.addNewMessage(msgObject);
+        output.updateDom(arrayWithInput);
+        // let index = msgArr.indexOf(msgObject); 
+        // output.newOutputToDom(msgObject, index);
+        // toggle.toggleDisabled();
         input.value=""; 
           
     }

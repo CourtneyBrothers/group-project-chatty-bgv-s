@@ -36,6 +36,10 @@ module.exports.removeMessage = () => {
     parentClass.remove();
 
     msgArr.splice(parseInt(parentClass.id),1);
+    // & do i need to returN?? or just call output to dom
+        //let index = msgArr.indexOf(msgObject); 
+        //output.newOutputToDom(msgObject, index);
+     //}
     return msgArr;    
 };
 
@@ -69,11 +73,11 @@ input.addEventListener("keypress", (e) => {
         let message = input.value;
         let msgObject = {};
         msgObject.msg = message;
-        messageController.addNewMessage(msgObject);
-        
-        let index = msgArr.indexOf(msgObject); 
-        output.newOutputToDom(msgObject, index);
-        toggle.toggleDisabled();
+        let arrayWithInput = messageController.addNewMessage(msgObject);
+        output.updateDom(arrayWithInput);
+        // let index = msgArr.indexOf(msgObject); 
+        // output.newOutputToDom(msgObject, index);
+        // toggle.toggleDisabled();
         input.value=""; 
           
     }
@@ -97,9 +101,8 @@ module.exports.getjsonData =() => {
 const parseMsg = () => {
     const msgData = JSON.parse(event.target.responseText).messages;
     for (let i = 0; i < msgData.length; i++) {
-        messageController.addNewMessage(msgData[i]); 
-        let index = msgData.indexOf(msgData[i]); 
-        output.newOutputToDom(msgData[i], index);
+        let arrayWithJson = messageController.addNewMessage(msgData[i]); 
+        output.updateDom(arrayWithJson);
     }    
     
     
@@ -120,8 +123,16 @@ json.getjsonData();
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved);
-         
+        output.updateDom(arrayRemoved); //this is the original line that calls the update
+           
+         //this is the new code block that does not work
+            // for(let i = 0; i < arrayRemoved.length; i++){
+                //  let index = i;
+                    // let message = arrayRemoved[i];  
+            //         output.newOutputToDom(message,index);
+
+            // }
+
     }
     toggle.toggleDisabled();
 };
@@ -130,7 +141,8 @@ document.querySelector("body").addEventListener("click", removeMessage);
 
 let clearAll = () => {
     let clearedArr = messageController.clearAllMessages();
-    output.updateDom(clearedArr);// get rid of 
+    output.updateDom(clearedArr);
+    
     toggle.toggleDisabled();
     //let output = document.getElementById("output");
     //output.innerHTML = ""

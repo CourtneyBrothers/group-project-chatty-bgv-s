@@ -12,8 +12,16 @@ json.getjsonData();
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved);
-         
+        output.updateDom(arrayRemoved); //this is the original line that calls the update
+           
+         //this is the new code block that does not work
+            // for(let i = 0; i < arrayRemoved.length; i++){
+                //  let index = i;
+                    // let message = arrayRemoved[i];  
+            //         output.newOutputToDom(message,index);
+
+            // }
+
     }
     toggle.toggleDisabled();
 };
@@ -22,7 +30,8 @@ document.querySelector("body").addEventListener("click", removeMessage);
 
 let clearAll = () => {
     let clearedArr = messageController.clearAllMessages();
-    output.updateDom(clearedArr);// get rid of 
+    output.updateDom(clearedArr);
+    
     toggle.toggleDisabled();
     //let output = document.getElementById("output");
     //output.innerHTML = ""
