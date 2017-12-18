@@ -14,7 +14,9 @@ module.exports.getjsonData =() => {
 const parseMsg = () => {
     const msgData = JSON.parse(event.target.responseText).messages;
     for (let i = 0; i < msgData.length; i++) {
-        messageController.addNewMessage(msgData[i]); 
+        let arrayWithJson = messageController.addNewMessage(msgData[i]); 
+        output.updateDom(arrayWithJson);
     }    
-    output.firstOutputToDom(messageController.getMessages());
+    
+    
 };

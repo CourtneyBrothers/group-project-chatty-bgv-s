@@ -1,14 +1,20 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
+//THIS IS THE PRIVATE ARRAY
+
 let msgArr = [];
 
-module.exports.getMessages = () => {
-    return msgArr;
-};
+//THIS IS THE SETTER FUNCTION
 
 module.exports.addNewMessage = (newMsg) => {
     msgArr.push(newMsg);
+    return msgArr;
+};
+
+
+
+module.exports.getMessages = () => {
     return msgArr;
 };
 
@@ -30,12 +36,8 @@ module.exports.removeMessage = () => {
     parentClass.remove();
 
     msgArr.splice(parseInt(parentClass.id),1);
+  
     return msgArr;    
-};
-
-module.exports.clearAllMessages = () => {
-    let clearedArr = messageController.clearAllMessages();
-    return clearedArr;
 };
 
 
@@ -68,11 +70,8 @@ input.addEventListener("keypress", (e) => {
         let message = input.value;
         let msgObject = {};
         msgObject.msg = message;
-        messageController.addNewMessage(msgObject);
-        
-        let index = msgArr.indexOf(msgObject); 
-        output.newOutputToDom(msgObject, index);
-        toggle.toggleDisabled();
+        let arrayWithInput = messageController.addNewMessage(msgObject);
+        output.updateDom(arrayWithInput);
         input.value=""; 
           
     }
@@ -96,9 +95,11 @@ module.exports.getjsonData =() => {
 const parseMsg = () => {
     const msgData = JSON.parse(event.target.responseText).messages;
     for (let i = 0; i < msgData.length; i++) {
-        messageController.addNewMessage(msgData[i]); 
+        let arrayWithJson = messageController.addNewMessage(msgData[i]); 
+        output.updateDom(arrayWithJson);
     }    
-    output.firstOutputToDom(messageController.getMessages());
+    
+    
 };
 
 },{"./appData":1,"./outputToDom":7}],6:[function(require,module,exports){
@@ -109,13 +110,16 @@ let input = require("./input");
 let del = require("./delete");
 let output = require("./outputToDom");
 let toggle = require("./disabled");
+let messageController = require("./appData");
 
 json.getjsonData();
 
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved);   
+        output.updateDom(arrayRemoved); 
+         
+
     }
     toggle.toggleDisabled();
 };
@@ -123,9 +127,13 @@ let removeMessage = (event) => {
 document.querySelector("body").addEventListener("click", removeMessage);
 
 let clearAll = () => {
-    let clearedArr = del.clearAllMessages();
+    let clearedArr = messageController.clearAllMessages();
     output.updateDom(clearedArr);
+    
     toggle.toggleDisabled();
+    //let output = document.getElementById("output");
+    //output.innerHTML = ""
+    //output.newMessage();
 
 };
 
@@ -155,21 +163,7 @@ const nav = document.querySelector('#navigation');
 
 
 
-//function stickNav () {
-    //console.log('navTop = ' + navTop);
-    //console.log('scrollY = ' + window.scrollY);
-    // if (window.scrollY >= navTop){
-    //     document.body.classList.add('fixed-nav');
-    //     document.body.style.paddingTop = nav.offsetHeight + 'px';
-    //     document.body.classList.add('fixed-nav');
-    // } else {
-    //     document.body.style.paddingTop = 0;
-    //     document.body.classList.remove('fixed-nav');
-    // }
-   
-//}
 
-//window.addEventListener('scroll', stickNav);
 
 //theme
 let isChecked = false;
@@ -190,22 +184,12 @@ drkTheme.addEventListener("click", function(){
             themeChng.style.color = "black";
         }
 });
-},{"./delete":2,"./disabled":3,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
+
+
+},{"./appData":1,"./delete":2,"./disabled":3,"./input":4,"./jsonData":5,"./outputToDom":7}],7:[function(require,module,exports){
 "use strict";
 let outputDiv = document.getElementById("output");
 
-
-module.exports.firstOutputToDom = (objectArr) => {
-    
-    for(let i = 0; i < objectArr.length; i++) {
-        outputDiv.innerHTML += `<div id = "${i}"class="parent">${objectArr[i].msg} <button class="delete">Delete</button></div>`;
-    }
-
-};
-
-module.exports.newOutputToDom = (newMessage, index) => {
-    outputDiv.innerHTML += `<div id = "${index}"class="parent">${newMessage.msg}<button class="delete">Delete</button></div>`;
-};
 
 module.exports.updateDom = (objectArr) => {
     outputDiv.innerHTML = "";
