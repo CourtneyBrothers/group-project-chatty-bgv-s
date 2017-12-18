@@ -16,7 +16,8 @@ input.addEventListener("keypress", (e) => {
         let arrayWithInput = messageController.addNewMessage(msgObject);
         output.updateDom(arrayWithInput);
         input.value=""; 
-          
+        return arrayWithInput; //GET NEW ARRAY ADD
     }
+    
 });
 
