@@ -15,9 +15,6 @@ input.addEventListener("keypress", (e) => {
         msgObject.msg = message;
         let arrayWithInput = messageController.addNewMessage(msgObject);
         output.updateDom(arrayWithInput);
-        // let index = msgArr.indexOf(msgObject); 
-        // output.newOutputToDom(msgObject, index);
-        // toggle.toggleDisabled();
         input.value=""; 
           
     }

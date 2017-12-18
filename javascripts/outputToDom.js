@@ -2,10 +2,6 @@
 let outputDiv = document.getElementById("output");
 
 
-module.exports.newOutputToDom = (newMessage, index) => {
-    outputDiv.innerHTML += `<div id = "${index}"class="parent">${newMessage.msg}<button class="delete">Delete</button></div>`;
-};
-
 module.exports.updateDom = (objectArr) => {
     outputDiv.innerHTML = "";
     for(let i = 0; i < objectArr.length; i++) {

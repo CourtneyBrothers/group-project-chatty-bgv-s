@@ -36,10 +36,7 @@ module.exports.removeMessage = () => {
     parentClass.remove();
 
     msgArr.splice(parseInt(parentClass.id),1);
-    // & do i need to returN?? or just call output to dom
-        //let index = msgArr.indexOf(msgObject); 
-        //output.newOutputToDom(msgObject, index);
-     //}
+  
     return msgArr;    
 };
 
@@ -75,9 +72,6 @@ input.addEventListener("keypress", (e) => {
         msgObject.msg = message;
         let arrayWithInput = messageController.addNewMessage(msgObject);
         output.updateDom(arrayWithInput);
-        // let index = msgArr.indexOf(msgObject); 
-        // output.newOutputToDom(msgObject, index);
-        // toggle.toggleDisabled();
         input.value=""; 
           
     }
@@ -123,15 +117,8 @@ json.getjsonData();
 let removeMessage = (event) => {
     if (event.target.className === "delete") {
         let arrayRemoved = del.removeMessage();
-        output.updateDom(arrayRemoved); //this is the original line that calls the update
-           
-         //this is the new code block that does not work
-            // for(let i = 0; i < arrayRemoved.length; i++){
-                //  let index = i;
-                    // let message = arrayRemoved[i];  
-            //         output.newOutputToDom(message,index);
-
-            // }
+        output.updateDom(arrayRemoved); 
+         
 
     }
     toggle.toggleDisabled();
@@ -203,10 +190,6 @@ drkTheme.addEventListener("click", function(){
 "use strict";
 let outputDiv = document.getElementById("output");
 
-
-module.exports.newOutputToDom = (newMessage, index) => {
-    outputDiv.innerHTML += `<div id = "${index}"class="parent">${newMessage.msg}<button class="delete">Delete</button></div>`;
-};
 
 module.exports.updateDom = (objectArr) => {
     outputDiv.innerHTML = "";
