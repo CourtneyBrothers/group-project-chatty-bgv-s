@@ -77,44 +77,25 @@ module.exports.getjsonData =() => {
         url:"messages.json",
     }).done(
             (data)=>{
-                 console.log(data);
+                 console.log("json",data);
                 parseMsg(data);
             }
         );
-    
-    // let preMsg = null;
-    // const msgReq = new XMLHttpRequest();
-    // msgReq.addEventListener("load", parseMsg);
-    // msgReq.open("GET", "messages.json");
-    // msgReq.send(); 
 };
 
 const parseMsg = (ajaxData) => {
-    // const msgData = JSON.parse(event.target.responseText).messages;
-    console.log("ajax data", ajaxData);
-    for (let i = 0; i < ajaxData.messages.length; i++) {
-        let arrayWithJson = messageController.addNewMessage(ajaxData.messages[i]); 
-        output.updateDom(arrayWithJson);
-    }      
+    $(ajaxData.messages).each((index,message)=>{
+        let arrayWithJson = messageController.addNewMessage(message);
+        console.log("array with json",arrayWithJson); 
+         output.updateDom(arrayWithJson);
+    });
+    // for (let i = 0; i < ajaxData.messages.length; i++) {
+    //     let arrayWithJson = messageController.addNewMessage(ajaxData.messages[i]); 
+    //     output.updateDom(arrayWithJson);
+    // }      
 };
 
-// $.ajax({
-//     url: "songs.json"
-//   })
-//   .done(executeAfterAjax)
-//   .fail(ifBork);
-  
-//   function ifBork(data) {
-//     console.log('Ooops', data);
-//   }
-  
-//   function executeAfterAjax(data) {
-//     console.log(data.songs);
-//     let songs = data.songs;
-//     $(songs).each( (index, song) => {
-//       $("#song-list").append(`<li>${song.title}</li>`)
-//     });
-//   }
+
 },{"./appData":1,"./outputToDom":6}],5:[function(require,module,exports){
 "use strict";
 
